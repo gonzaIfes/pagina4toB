@@ -1,635 +1,99 @@
-/* Navegación suave al hacer clic en el menú */
-html {
-    scroll-behavior: smooth;
-}
-/* 1. Reseteo básico: limpia los márgenes predeterminados del navegador */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* 2. Estilo general de la página: Fondo estético oscuro */
+/* Estilos generales de la página */
 body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    line-height: 1.6;
-    color: #a1a1aa; /* Texto en un gris muy suave para no encandilar */
-    background-color: #18181b; /* Gris carbón profundo y elegante */
-    /* Le damos un levísimo degradado para que no sea un color plano y aburrido */
-    background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
+    background-image: url("img1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed; /* Mantiene el fondo fijo al hacer scroll */
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
     min-height: 100vh;
 }
 
-/* 3. El menú de navegación (Efecto Vidrio Transparente) */
-header, .nav-proyecto {
-    background-color: rgba(24, 24, 27, 0.6); /* Color oscuro medio transparente */
-    backdrop-filter: blur(12px); /* MAGIA: Desenfoca lo que queda por detrás del menú */
-    -webkit-backdrop-filter: blur(12px); /* Para navegadores de Apple */
-    padding: 20px 0;
-    position: sticky; 
-    top: 0;
-    z-index: 100;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Borde luminoso muy sutil */
-}
-
-nav ul {
-    list-style: none; 
+/* Barra de navegación */
+nav {
+    background-color: rgba(40, 40, 40, 0.9);
+    padding: 15px;
     text-align: center;
-}
-
-nav ul li {
-    display: inline-block; 
-    margin: 0 20px;
-}
-
-nav ul li a {
-    text-decoration: none; 
-    color: #a1a1aa;
-    font-size: 14px;
-    text-transform: uppercase; 
-    letter-spacing: 2px; 
-    transition: color 0.3s; 
-}
-
-nav ul li a:hover {
-    color: #ffffff; /* Brilla en blanco puro al pasar el mouse */
-}
-
-/* Colores de Textos y Títulos para modo oscuro */
-h1, h2, h3 {
-    font-weight: 300; 
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-    color: #ffffff; /* Los títulos siempre en blanco para destacar */
-}
-
-p {
-    margin-bottom: 15px;
-    color: #a1a1aa;
-}
-/* 4. Estilo de las secciones (Quién soy, Fotos, Contacto) */
-section {
-    padding: 100px 20px; /* Espacio arriba/abajo y a los lados */
-    max-width: 800px; /* Ancho máximo para que el texto no sea infinito */
-    margin: 0 auto; /* Centra el contenido en la pantalla */
-    text-align: center;
-}
-
-h1, h2 {
-    font-weight: 300; /* Letra más fina y elegante */
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-}
-
-p {
-    margin-bottom: 15px;
-    color: #666666;
-}
-
-/* 5. Diferenciamos un poco el fondo de la sección de fotos */
-#fotos {
-    max-width: 100%; 
-    background-color: transparent; /* Quitamos el fondo sólido */
-}
-/* =========================================
-   6. CARRUSEL 3D (Estilo Premium)
-   ========================================= */
-.carrusel-3d {
-    position: relative;
-    max-width: 1200px; /* Más ancho para que entren las 3 fotos */
-    height: 600px;
-    margin: 40px auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden; 
-}
-
-.carrusel-track {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* ESTADO BASE: Todas las fotos están ocultas y achicadas por defecto */
-.slide {
-    position: absolute;
-    width: 55%; /* La foto central ocupará un poco más de la mitad */
-    height: 450px;
-    border-radius: 8px;
-    overflow: hidden;
-    /* ESTO ES LA MAGIA: Una transición de medio segundo súper suave */
-    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
-    opacity: 0;
-    z-index: 1;
-    transform: scale(0.8) translateX(0);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-    border: 1px solid rgba(255, 255, 255, 0.05); /* Borde de vidrio */
-}
-
-.slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* --- ESTADOS DINÁMICOS CONTROLADOS POR JAVASCRIPT --- */
-
-/* FOTO CENTRAL (Activa y Clickable) */
-.slide.activa {
-    opacity: 1;
-    z-index: 10;
-    transform: scale(1) translateX(0); /* Tamaño real, al centro */
-}
-
-/* FOTO IZQUIERDA (Anterior) */
-.slide.anterior {
-    opacity: 0.3; /* Semitransparente */
-    z-index: 5;
-    transform: scale(0.85) translateX(-65%); /* Achicada y movida a la izquierda */
-}
-
-/* FOTO DERECHA (Siguiente) */
-.slide.siguiente {
-    opacity: 0.3;
-    z-index: 5;
-    transform: scale(0.85) translateX(65%); /* Achicada y movida a la derecha */
-}
-
-/* Evita que se abran los links de las fotos laterales o traseras por accidente */
-.slide:not(.activa) {
-    pointer-events: none;
-    cursor: default;
-}
-
-/* Estilo para los botones de las flechas para que combinen */
-/* Estilo Premium para los botones de las flechas */
-.carrusel-3d .flecha {
-    z-index: 20;
-    /* Fondo casi invisible, puro efecto vidrio */
-    background-color: rgba(255, 255, 255, 0.02); 
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 50%; /* Círculos perfectos */
-    width: 60px; /* Un poco más grandes para mayor presencia */
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 20px; /* Más espacio para respirar */
-    color: #a1a1aa; /* Color gris suave para la flecha */
-    cursor: pointer;
-    /* Animación suave para todos los cambios */
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
-}
-
-/* El efecto al pasar el mouse por encima */
-.carrusel-3d .flecha:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Se ilumina el cristal */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Se ilumina el borde */
-    color: #ffffff; /* La flecha brilla en blanco puro */
-    transform: scale(1.1); /* Hace un zoom sutil y elegante */
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.05); /* Resplandor suave */
-}
-/* 7. Sección de Contacto */
-.contenedor-contacto {
-    display: flex;
-    flex-wrap: wrap; /* Permite que el formulario baje si la pantalla es chica */
-    gap: 40px; /* Separación entre los datos y el formulario */
-    text-align: left; /* Alineamos el texto a la izquierda para mejor lectura */
-    margin-top: 40px;
-}
-
-/* Columna de información */
-.info-contacto {
-    flex: 1; /* Ocupa 1 parte del espacio */
-    min-width: 250px;
-}
-
-.info-contacto h3 {
-    margin-bottom: 15px;
-    font-weight: 400;
-    font-size: 18px;
-    color: #333333;
-}
-
-.info-contacto p {
-    margin-bottom: 10px;
-    font-size: 15px;
-}
-
-/* 7. Botones de Contacto Directo */
-.botones-contacto {
-    flex: 2; /* Ocupa más espacio que la columna de datos */
-    min-width: 300px;
-    display: flex;
-    flex-direction: column; /* Apila los botones uno sobre otro */
-    gap: 15px; /* Espacio entre los botones */
-    justify-content: center; /* Los centra verticalmente */
-}
-
-.botones-contacto p {
-    margin-bottom: 10px;
-    color: #555555;
-    font-size: 15px;
-}
-
-/* Estilo base compartido para ambos botones */
-.btn-whatsapp, .btn-email {
-    display: inline-block;
-    padding: 15px 20px;
-    text-align: center;
-    text-decoration: none; /* Quita el subrayado del link */
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease; /* Animación suave */
-}
-
-/* Botón principal: WhatsApp (Sólido y elegante) */
-.btn-whatsapp {
-    background-color: #34592c;
-    color: #ffffff;
-    border: 2px solid #333333;
-}
-
-.btn-whatsapp:hover {
-    background-color: #3ace5f;
-    border-color: #000000;
-}
-
-/* Botón secundario: Email (Fondo transparente y borde delineado) */
-.btn-email {
-    background-color: #585858;
-    color: #ffffff;
-    border: 2px solid #818181;
-}
-
-.btn-email:hover {
-    background-color: #a1eaf4; /* Un gris muy sutil al pasar el mouse */
-    border-color: #000000;
-}
-/* 8. Sección Quién Soy (Perfil) */
-.contenedor-perfil {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-    text-align: left;
-    flex-wrap: wrap; /* Para que se adapte a celulares */
-}
-
-.texto-perfil {
-    flex: 2;
-    min-width: 300px;
-}
-
-.imagen-perfil {
-    flex: 1;
-    min-width: 200px;
-    display: flex;
-    justify-content: center;
-}
-
-/* Círculo provisorio para la foto de perfil */
-.placeholder-foto {
-    width: 200px;
-    height: 200px;
-    background-color: #e0e0e0;
-    border-radius: 50%; /* Lo hace circular */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #888;
-}
-/* =========================================
-   8. ESTILOS PARA LAS PÁGINAS DE PROYECTOS
-   ========================================= */
-
-/* Barra de navegación superior (Botón volver) */
-.nav-proyecto {
-    padding: 20px 40px;
-    background-color: #cacaca;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     position: sticky;
     top: 0;
     z-index: 100;
 }
 
-.btn-volver {
+nav a {
+    color: white;
     text-decoration: none;
-    color: #333333;
-    font-size: 14px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: color 0.3s;
+    font-size: 20px;
+    margin: 0 20px;
+    transition: color 0.3s ease;
 }
 
-.btn-volver:hover {
-    color: #888888;
+nav a:hover {
+    color: yellow;
 }
 
-/* Encabezado gigante con la foto (Hero) */
-.hero-proyecto {
-    position: relative;
-    height: 70vh; /* Ocupa el 70% del alto de la pantalla */
-    width: 100%;
-    overflow: hidden;
-}
-
-/* La magia del Parallax */
-.hero-proyecto.parallax {
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    /* ESTA ÚNICA LÍNEA CREA EL EFECTO 3D: Fija el fondo al monitor */
-    background-attachment: fixed; 
-}
-
-.hero-texto {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 60px 20px 30px;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-    color: #ffffff;
-    text-align: center;
-}
-
-.hero-texto h1 {
-    font-size: 40px;
-    margin-bottom: 10px;
-    font-weight: 300;
-}
-
-.hero-texto p {
-    color: #e0e0e0;
-    font-size: 18px;
-    letter-spacing: 2px;
-}
-
-/* Contenedor principal de la información */
-.contenedor-proyecto {
+/* Contenedor principal con efecto de fondo difuminado (Glassmorphism) */
+.content-container {
     max-width: 1000px;
-    margin: 0 auto;
-    padding: 60px 20px;
-}
-
-.info-proyecto {
-    display: flex;
-    flex-wrap: wrap; /* Permite que la ficha baje en celulares */
-    gap: 50px;
-    margin-bottom: 60px;
-}
-
-.descripcion {
-    flex: 2; /* Ocupa más espacio que la ficha técnica */
-    min-width: 300px;
-    text-align: left;
-}
-
-.descripcion h2 {
-    text-align: left;
-}
-
-/* Caja de la Ficha Técnica */
-.ficha-tecnica {
-    flex: 1;
-    min-width: 250px;
-    background-color: rgba(255, 255, 255, 0.03); /* Efecto vidrio */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin: 40px auto;
     padding: 30px;
-    border-radius: 4px;
-    text-align: left;
+    background: rgba(255, 255, 255, 0.75); /* Fondo blanco semitransparente */
+    backdrop-filter: blur(10px); /* Aplica el desenfoque al fondo */
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
-.ficha-tecnica h3 {
-    margin-bottom: 20px;
-    font-weight: 300;
-    border-bottom: 1px solid #dddddd;
-    padding-bottom: 10px;
+/* Título y Párrafo */
+h1 {
+    color: #1a2a52;
+    font-size: 42px;
+    text-align: center;
+    margin-top: 10px;
 }
 
-.ficha-tecnica ul {
-    list-style: none;
+p {
+    text-align: center;
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 40px;
 }
 
-.ficha-tecnica li {
-    margin-bottom: 12px;
-    font-size: 15px;
-    color: #a1a1aa; 
-}
-
-/* Galería de fotos extra al final */
-.galeria-proyecto {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-}
-
-.galeria-proyecto img {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 4px;
-    transition: transform 0.3s ease;
-}
-
-.galeria-proyecto img:hover {
-    transform: scale(1.02);
-}
-/* =========================================
-   9. LIGHTBOX (Visor de imágenes)
-   ========================================= */
-
-/* Por defecto, el lightbox está oculto */
-.lightbox {
-    display: none; 
-    position: fixed; /* ESTO ES LO QUE LO HACE FLOTAR */
-    z-index: 999; /* ESTO LO PONE POR ENCIMA DE TODO */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9); /* Fondo negro opaco */
-    justify-content: center; 
-    align-items: center;
-    animation: aparecer 0.3s ease;
-}
-
-.lightbox img {
-    max-width: 90%; 
-    max-height: 90vh; 
-    box-shadow: 0 0 20px rgba(0,0,0,0.5); 
-    border-radius: 4px;
-}
-
-.cerrar {
-    position: absolute;
-    top: 20px;
-    right: 40px;
-    color: white;
-    font-size: 50px;
-    font-weight: 300;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.cerrar:hover {
-    color: #aaaaaa;
-}
-
-/* La clase que agrega JavaScript para mostrarlo */
-.lightbox.activo {
+/* Galería de Ítems (Grid responsivo) */
+.gallery {
     display: flex;
-}
-
-.galeria-proyecto img {
-    cursor: pointer;
-}
-
-@keyframes aparecer {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-/* Flechas de navegación dentro del Lightbox */
-.flecha-lightbox {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%); /* Las centra verticalmente */
-    background-color: transparent;
-    color: white;
-    border: none;
-    font-size: 40px;
-    cursor: pointer;
-    padding: 20px;
-    transition: color 0.3s ease;
-    z-index: 1000; /* Se asegura de que estén por encima de la foto */
-}
-
-.flecha-lightbox:hover {
-    color: #aaaaaa;
-}
-
-.flecha-lightbox.izq {
-    left: 20px;
-}
-
-.flecha-lightbox.der {
-    right: 20px;
-}
-/* =========================================
-   11. LOGO DEL HEADER
-   ========================================= */
-
-.logo-header {
-    position: absolute; /* Lo independiza del menú centrado */
-    right: 5%; /* Margen desde la derecha (puedes cambiar este valor) */
-    top: 50%; 
-    transform: translateY(-50%); /* Centrado vertical matemático perfecto */
-    display: flex;
-    align-items: center;
-    z-index: 110;
-}
-
-.logo-header img {
-    height: 35px; /* Altura ideal para no ensanchar el menú. Ajustable */
-    width: auto; /* Mantiene la proporción original */
-    opacity: 0.7; /* Lo hacemos semi-transparente para combinar con el Glassmorphism */
-    transition: all 0.3s ease;
-}
-
-.logo-header img:hover {
-    opacity: 1; /* Brilla al 100% al pasar el mouse */
-    transform: scale(1.05); /* Pequeño efecto de zoom */
-}
-
-/* Ajuste para teléfonos celulares (pantallas pequeñas) */
-@media (max-width: 768px) {
-    .logo-header {
-        position: relative; /* Vuelve al flujo normal */
-        right: auto;
-        top: auto;
-        transform: none;
-        justify-content: center; /* Lo centra debajo del menú */
-        margin-top: 15px;
-    }
-}
-/* =========================================
-   12. PIE DE PÁGINA (Footer)
-   ========================================= */
-.footer-estetico {
-    margin-top: 80px;
-    padding: 40px 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
-    justify-content: space-between; /* Texto a la izq, icono a la der */
-    align-items: center;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.footer-estetico p {
-    margin: 0;
-    font-size: 14px;
-    color: #71717a;
-}
-
-.icono-social {
-    color: #a1a1aa;
-    transition: all 0.3s ease;
-    display: flex;
-}
-
-.icono-social:hover {
-    color: #ffffff;
-    transform: translateY(-3px); /* Se eleva un poquito al pasar el mouse */
-}
-/* =========================================
-   13. PANTALLA DE CARGA (Preloader)
-   ========================================= */
-#preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #18181b; /* El mismo fondo oscuro de tu web */
-    z-index: 9999; /* Por encima de TODO */
-    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    transition: opacity 0.8s ease, visibility 0.8s ease; /* Desvanecimiento suave */
+    gap: 25px;
 }
 
-/* El anillo que gira */
-.anillo-carga {
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-top: 1px solid #ffffff; /* Solo la parte de arriba brilla */
-    border-radius: 50%;
-    animation: girar 1s linear infinite;
+/* Tarjeta individual por ítem */
+.item-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 260px;
 }
 
-@keyframes girar {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Clase que agregará JS para ocultarlo */
-#preloader.oculto {
-    opacity: 0;
-    visibility: hidden;
+/* Imagen de cada ítem */
+.item-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
 }
+
+/* Mini título del ítem */
+.item-card h3 {
+    margin: 15px 0 5px 0;
+    font-size: 18px;
+    color: #222;
+}
+

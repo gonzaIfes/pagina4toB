@@ -3,152 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio de Arquitectura</title>
+    <title>Mi Primera Página Web</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="preloader">
-        <div class="anillo-carga"></div>
-    </div>
-<header>
-        <nav>
-            <ul>
-                <li><a href="#quien-soy">Quién Soy</a></li>
-                <li><a href="#fotos">Fotos</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </nav>
-        <a href="index.html" class="logo-header">
-            <img src="img/logo.jpg" alt="Logo del Estudio">
-        </a>
-    </header>
 
-<section id="quien-soy">
-        <div class="contenedor-perfil">
-            <div class="texto-perfil">
-                <h1>Hola, soy Mario</h1>
-                <p>Especializado en diseño residencial y espacios funcionales. Mi enfoque busca integrar la luz natural, materiales nobles y la fluidez espacial para crear obras que mejoren la calidad de vida de quienes las habitan.</p>
-            </div>
-            <div class="imagen-perfil">
-                <div class="placeholder-foto">Foto / Logo</div>
-            </div>
-        </div>
-    </section>
-<section id="fotos">
-        <h2>Mis Proyectos</h2>
-        <p>Una selección de mis trabajos más recientes. Haz clic en la imagen central para ver más detalles.</p>
+    <nav>
+        <a href="#">Pestaña1</a>
+        <a href="#">Pestaña2</a>
+        <a href="#">Pestaña3</a>
+    </nav>
 
-        <div class="carrusel-3d">
-            <button id="btn-izq" class="flecha">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-            </button>
+    <main class="content-container">
+        <h1>Proyecto Página Web</h1>
+        <p>Esta es mi primera página web creada utilizando HTML y CSS.</p>
 
-            <div class="carrusel-track">
-                
-                <a href="proyecto1.html" class="slide">
-                    <img src="img/foto1.jpg" alt="Casa Minimalista">
-                    <div class="titulo-imagen">Casa Minimalista en el Bosque</div>
-                </a>
-                
-                <a href="proyecto2.html" class="slide">
-                    <img src="img/foto2.jpg" alt="Edificio Corporativo">
-                    <div class="titulo-imagen">Edificio Corporativo Central</div>
-                </a>
-                
-                <a href="proyecto3.html" class="slide">
-                    <img src="img/foto3.jpg" alt="Loft Urbano">
-                    <div class="titulo-imagen">Remodelación Loft Urbano</div>
-                </a>
-                
-                <a href="proyecto4.html" class="slide">
-                    <img src="img/foto4.jpg" alt="Pabellón de Exposiciones">
-                    <div class="titulo-imagen">Pabellón de Exposiciones</div>
-                </a>
-
+        <!-- Galería de ítems con imagen y mini título -->
+        <section class="gallery">
+            <div class="item-card">
+                <img src="imagen1.jpg" alt="Imagen de ejemplo 1">
+                <h3>Ítem 1</h3>
             </div>
 
-            <button id="btn-der" class="flecha">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-            </button>
-        </div>
-    </section>
-<section id="contacto">
-        <h2>Contacto</h2>
-        <p>¿Tienes un proyecto en mente? Escríbeme y lo hacemos realidad.</p>
-
-        <div class="contenedor-contacto">
-            <div class="info-contacto">
-                <h3>Mis datos</h3>
-                <p><strong>Email:</strong> tu-correo@ejemplo.com</p>
-                <p><strong>Teléfono:</strong> +54 123 456 7890</p>
-                <p><strong>Estudio:</strong> Neuquén, Argentina</p>
+            <div class="item-card">
+                <img src="imagen2.jpg" alt="Imagen de ejemplo 2">
+                <h3>Ítem 2</h3>
             </div>
 
-<div class="botones-contacto">
-                <p>La forma más rápida de hablar sobre tu próximo proyecto:</p>
-                
-                <a href="https://wa.me/5492994616747?text=Hola,%20vi%20tu%20portafolio%20y%20me%20gustaría%20hacerte%20una%20consulta." target="_blank" class="btn-whatsapp">
-                    Escribir por WhatsApp
-                </a>
-
-                <a href="mailto:tu-correo@ejemplo.com?subject=Consulta%20desde%20la%20Pagina%20Web" class="btn-email">
-                    Enviar un Correo
-                </a>
+            <div class="item-card">
+                <img src="imagen3.jpg" alt="Imagen de ejemplo 3">
+                <h3>Ítem 3</h3>
             </div>
-        </div>
-    </section>
-    <footer class="footer-estetico">
-        <p>&copy; 2026 Mario Gonzalez | Arquitecto</p>
-        
-        <a href="https://instagram.com/mariogonzalezarq" target="_blank" class="icono-social" aria-label="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-            </svg>
-        </a>
-    </footer>
-<script>
-        const slides = document.querySelectorAll('.slide');
-        const btnIzq = document.getElementById('btn-izq');
-        const btnDer = document.getElementById('btn-der');
-        
-        let indiceActual = 0;
-        const totalSlides = slides.length;
+        </section>
+    </main>
 
-        function actualizarCarrusel() {
-            slides.forEach(slide => {
-                slide.classList.remove('activa', 'anterior', 'siguiente');
-            });
-
-            let indiceAnterior = (indiceActual - 1 + totalSlides) % totalSlides;
-            let indiceSiguiente = (indiceActual + 1) % totalSlides;
-
-            slides[indiceActual].classList.add('activa');
-            slides[indiceAnterior].classList.add('anterior');
-            slides[indiceSiguiente].classList.add('siguiente');
-        }
-
-        actualizarCarrusel();
-
-        btnDer.addEventListener('click', () => {
-            indiceActual = (indiceActual + 1) % totalSlides;
-            actualizarCarrusel();
-        });
-
-        btnIzq.addEventListener('click', () => {
-            indiceActual = (indiceActual - 1 + totalSlides) % totalSlides;
-            actualizarCarrusel();
-        });
-        // Lógica del Preloader
-        window.addEventListener('load', () => {
-            document.getElementById('preloader').classList.add('oculto');
-        });
-    </script>
 </body>
 </html>
-        
