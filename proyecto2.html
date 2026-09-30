@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edificio Corporativo Central - Portafolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav-proyecto">
+        <a href="index.html" class="btn-volver">&#8592; Volver al Portafolio</a>
+        
+        <a href="index.html" class="logo-header">
+            <img src="img/logo.jpg" alt="Logo del Estudio">
+        </a>
+    </nav>
+
+<header class="hero-proyecto parallax" style="background-image: url('img/foto2.jpg');">
+        <div class="hero-texto">
+            <h1>Edificio Corporativo Central</h1>
+            <p>Neuquén Capital | 2024</p>
+        </div>
+    </header>
+
+    <main class="contenedor-proyecto">
+        
+        <section class="info-proyecto">
+            <div class="descripcion">
+                <h2>Sobre la Obra</h2>
+                <p>Este proyecto se centró en crear un espacio de trabajo dinámico y eficiente. El diseño arquitectónico integra sistemas automatizados para optimizar el consumo energético, la iluminación y la climatización, respondiendo a las altas exigencias de la arquitectura corporativa moderna.</p>
+                <p>La fachada de vidrio de alto rendimiento no solo proporciona vistas panorámicas excepcionales, sino que también funciona como un filtro térmico esencial para las variaciones de temperatura de la región.</p>
+            </div>
+            
+            <div class="ficha-tecnica">
+                <h3>Ficha Técnica</h3>
+                <ul>
+                    <li><strong>Ubicación:</strong> Neuquén Capital, Argentina</li>
+                    <li><strong>Superficie:</strong> 1.200 m²</li>
+                    <li><strong>Año:</strong> 2024</li>
+                    <li><strong>Características:</strong> Fachada vidriada, control domótico centralizado, planta libre.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="galeria-proyecto">
+            <img src="img/foto1.jpg" alt="Vista del lobby de ingreso">
+            <img src="img/foto3.jpg" alt="Detalle de las oficinas">
+            <img src="img/foto4.jpg" alt="Plano de planta tipo">
+        </section>
+
+    </main>
+<div id="lightbox" class="lightbox">
+        <span id="cerrar-lightbox" class="cerrar">&times;</span>
+        
+        <button id="btn-izq-lightbox" class="flecha-lightbox izq">&#10094;</button>
+        
+        <img id="img-lightbox" src="" alt="Imagen en pantalla completa">
+        
+        <button id="btn-der-lightbox" class="flecha-lightbox der">&#10095;</button>
+    </div>
+
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const imgLightbox = document.getElementById('img-lightbox');
+        const btnCerrar = document.getElementById('cerrar-lightbox');
+        const btnIzqLightbox = document.getElementById('btn-izq-lightbox');
+        const btnDerLightbox = document.getElementById('btn-der-lightbox');
+        const imagenesGaleria = document.querySelectorAll('.galeria-proyecto img');
+
+        let indiceActualLightbox = 0; 
+        const arrayImagenes = Array.from(imagenesGaleria); 
+
+        // 1. Abrir el Lightbox al tocar una foto
+        imagenesGaleria.forEach((imagen, index) => {
+            imagen.addEventListener('click', () => {
+                indiceActualLightbox = index; 
+                actualizarImagenLightbox();
+                lightbox.classList.add('activo'); 
+            });
+        });
+
+        // Función que cambia la foto en pantalla
+        function actualizarImagenLightbox() {
+            imgLightbox.src = arrayImagenes[indiceActualLightbox].src;
+        }
+
+        // 2. Navegar con la Flecha Derecha
+        btnDerLightbox.addEventListener('click', (evento) => {
+            evento.stopPropagation(); 
+            indiceActualLightbox = (indiceActualLightbox + 1) % arrayImagenes.length;
+            actualizarImagenLightbox();
+        });
+
+        // 3. Navegar con la Flecha Izquierda
+        btnIzqLightbox.addEventListener('click', (evento) => {
+            evento.stopPropagation();
+            indiceActualLightbox = (indiceActualLightbox - 1 + arrayImagenes.length) % arrayImagenes.length;
+            actualizarImagenLightbox();
+        });
+
+        // 4. Cerrar con la X
+        btnCerrar.addEventListener('click', () => {
+            lightbox.classList.remove('activo');
+        });
+
+        // 5. Cerrar al tocar el fondo oscuro
+        lightbox.addEventListener('click', (evento) => {
+            if (evento.target === lightbox) {
+                lightbox.classList.remove('activo');
+            }
+        });
+    </script>
+</body>
+</html>

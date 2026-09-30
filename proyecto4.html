@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pabellón de Exposiciones - Portafolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav-proyecto">
+        <a href="index.html" class="btn-volver">&#8592; Volver al Portafolio</a>
+        
+        <a href="index.html" class="logo-header">
+            <img src="img/logo.jpg" alt="Logo del Estudio">
+        </a>
+    </nav>
+
+<header class="hero-proyecto parallax" style="background-image: url('img/foto4.jpg');">
+        <div class="hero-texto">
+            <h1>Pabellón de Exposiciones</h1>
+            <p>Mendoza, Argentina | 2026</p>
+        </div>
+    </header>
+
+    <main class="contenedor-proyecto">
+        
+        <section class="info-proyecto">
+            <div class="descripcion">
+                <h2>Sobre la Obra</h2>
+                <p>Concebido como un espacio dinámico y versátil, este pabellón fue diseñado para albergar muestras de arte, conferencias y eventos culturales. La premisa principal fue crear una estructura visualmente ligera que dialogara en total armonía con su entorno.</p>
+                <p>La cubierta translúcida permite bañar el interior con luz natural difusa durante el día, generando las condiciones ideales para la exhibición de obras. Al caer la noche, el edificio se transforma en una caja de luz que actúa como un faro urbano para los visitantes.</p>
+            </div>
+            
+            <div class="ficha-tecnica">
+                <h3>Ficha Técnica</h3>
+                <ul>
+                    <li><strong>Ubicación:</strong> Mendoza, Argentina</li>
+                    <li><strong>Superficie:</strong> 450 m²</li>
+                    <li><strong>Año:</strong> 2026</li>
+                    <li><strong>Materiales:</strong> Estructura metálica, paneles de policarbonato, pisos de madera.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="galeria-proyecto">
+            <img src="img/foto2.jpg" alt="Vista interior durante una exposición">
+            <img src="img/foto1.jpg" alt="Detalle de la estructura metálica">
+            <img src="img/foto3.jpg" alt="Plano de corte y elevación">
+        </section>
+
+    </main>
+<div id="lightbox" class="lightbox">
+        <span id="cerrar-lightbox" class="cerrar">&times;</span>
+        
+        <button id="btn-izq-lightbox" class="flecha-lightbox izq">&#10094;</button>
+        
+        <img id="img-lightbox" src="" alt="Imagen en pantalla completa">
+        
+        <button id="btn-der-lightbox" class="flecha-lightbox der">&#10095;</button>
+    </div>
+
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const imgLightbox = document.getElementById('img-lightbox');
+        const btnCerrar = document.getElementById('cerrar-lightbox');
+        const btnIzqLightbox = document.getElementById('btn-izq-lightbox');
+        const btnDerLightbox = document.getElementById('btn-der-lightbox');
+        const imagenesGaleria = document.querySelectorAll('.galeria-proyecto img');
+
+        let indiceActualLightbox = 0; 
+        const arrayImagenes = Array.from(imagenesGaleria); 
+
+        // 1. Abrir el Lightbox al tocar una foto
+        imagenesGaleria.forEach((imagen, index) => {
+            imagen.addEventListener('click', () => {
+                indiceActualLightbox = index; 
+                actualizarImagenLightbox();
+                lightbox.classList.add('activo'); 
+            });
+        });
+
+        // Función que cambia la foto en pantalla
+        function actualizarImagenLightbox() {
+            imgLightbox.src = arrayImagenes[indiceActualLightbox].src;
+        }
+
+        // 2. Navegar con la Flecha Derecha
+        btnDerLightbox.addEventListener('click', (evento) => {
+            evento.stopPropagation(); 
+            indiceActualLightbox = (indiceActualLightbox + 1) % arrayImagenes.length;
+            actualizarImagenLightbox();
+        });
+
+        // 3. Navegar con la Flecha Izquierda
+        btnIzqLightbox.addEventListener('click', (evento) => {
+            evento.stopPropagation();
+            indiceActualLightbox = (indiceActualLightbox - 1 + arrayImagenes.length) % arrayImagenes.length;
+            actualizarImagenLightbox();
+        });
+
+        // 4. Cerrar con la X
+        btnCerrar.addEventListener('click', () => {
+            lightbox.classList.remove('activo');
+        });
+
+        // 5. Cerrar al tocar el fondo oscuro
+        lightbox.addEventListener('click', (evento) => {
+            if (evento.target === lightbox) {
+                lightbox.classList.remove('activo');
+            }
+        });
+    </script>
+</body>
+</html>
